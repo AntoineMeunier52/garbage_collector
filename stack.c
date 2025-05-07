@@ -1,6 +1,18 @@
 #include "stack.h"
 #include <stdlib.h>
+#include <assert.h>
+#include <stddef.h>
 
+/*
+ *remove the last element from the stack (Last in, First out)LIFO
+ */
+void *stack_pop(stack_t *stack) {
+	if (stack->count == 0){
+		return NULL;
+	}
+	stack->count--;
+	return stack->data[stack->count];
+}
 
 /*
  *Push a new element in the stack
