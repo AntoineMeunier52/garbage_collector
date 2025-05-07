@@ -4,6 +4,19 @@
 #include <stddef.h>
 
 /*
+ *free the stack
+ */
+void stack_free(stack_t *stack) {
+	if (stack == NULL) {
+		return;
+	}
+	if (stack->data != NULL) {
+		free(stack->data);
+	}
+	free(stack);
+}
+
+/*
  *remove the last element from the stack (Last in, First out)LIFO
  */
 void *stack_pop(stack_t *stack) {
