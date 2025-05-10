@@ -1,6 +1,24 @@
 #include <stdlib.h>
 #include "snekobject.h"
 
+snek_object_t *new_snek_vector3(
+    snek_object_t *x, snek_object_t *y, snek_object_t *z
+) {
+  if (x == NULL || y == NULL || z == NULL) {
+    return NULL;
+  }
+  
+  snek_object_t *obj = malloc(sizeof(snek_object_t));
+  if (obj == NULL){
+    return NULL;
+  }
+
+  obj->kind = VECTOR3;
+  snek_vector_t vector = {x: x, y: y, z: z};
+  obj->data.v_vector3 = vector;
+  return obj;
+}
+
 snek_object_t *new_snek_string(char *value) {
 	snek_object_t *obj = malloc(sizeof(snek_object_t));
 	if (obj == NULL) {
@@ -17,7 +35,7 @@ snek_object_t *new_snek_string(char *value) {
 	strcpy(new_str, value);
 
 	obj->kind = STRING;
-	obj->data.v_string = new_str;
+	obj->data.v_string = new_str;:w
 	return obj;
 }
 
