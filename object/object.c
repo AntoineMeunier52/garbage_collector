@@ -1,6 +1,39 @@
 #include <stdlib.h>
 #include "snekobject.h"
 
+bool snek_array_set(snek_object_t *obj, size_t index, snek_object_t *value) {
+  if (obj == NULL || value == NULL) {
+    return NULL;
+  }
+
+  if (obj->kind != ARRAY) {
+    return false;
+  }
+
+  if (index < 0 || index >= obj->data.v_array.size) {
+    return false;
+  }
+
+  obj->data.v_array.elements[index] = value;
+  return true;
+}
+
+snek_object_t *snek_array_get(snek_object_t *obj, size_t index) {
+  if (obj == NULL) {
+    return NULL;
+  }
+
+  if (obj->kind != ARRAY) {
+    return NULL;
+  }
+
+  if (index < 0 || index >= obj->data.v_array.size) {
+    return false;
+  }
+
+  return obj->data.v_array.elements[index];
+}
+
 snek_object_t *new_snek_array(size_t size) {
   snek_object_t *obj = malloc(sizeof(snek_object_t));
   if (obj == NULL) {
