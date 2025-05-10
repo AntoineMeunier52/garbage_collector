@@ -23,6 +23,11 @@ void refcount_free(snek_object_t *obj) {
     case STRING:
       free(obj->data.v_string);
       break;
+    case VECTOR3:
+      refcount_dec(obj->data.v_vector3.x);
+      refcount_dec(obj->data.v_vector3.y);
+      refcount_dec(obj->data.v_vector3.z);
+      break;
     default:
       exit(1);
   }
@@ -204,6 +209,9 @@ snek_object_t *new_snek_vector3(
   obj->kind = VECTOR3;
   snek_vector_t vector = {x: x, y: y, z: z};
   obj->data.v_vector3 = vector;
+  refcount_inc(x);
+  refcount_inc(y);
+  refcount_inc(z);
   return obj;
 }
 
