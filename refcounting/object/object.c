@@ -2,6 +2,25 @@
 #include <string.h>
 #include "snekobject.h"
 
+void refcount_inc(snek_object_t *obj) {
+  if (obj == NULL) {
+    return;
+  }
+
+  obj->refcount++;
+  return;
+}
+
+snek_object_t *_new_snek_object() {
+  snek_object_t *obj = calloc(1, sizeof(snek_object_t));
+  if (obj == NULL) {
+    return NULL;
+  }
+
+  obj->refcount = 1;
+  return obj;
+}
+
 snek_object_t *snek_add(snek_object_t *a, snek_object_t *b) {
   if (a == NULL || b == NULL) {
     return NULL;
